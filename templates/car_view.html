@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <script>
 
-    function loadXMLDoc(msg)
+    function startServerAndListen()
     {
         var xmlhttp;
         if (window.XMLHttpRequest)
@@ -21,35 +21,23 @@
         xmlhttp.onreadystatechange=function()
         {
             if (xmlhttp.readyState==4 && xmlhttp.status==200)
-            {#if (xmlhttp.status==200)#}
-            {
-                let msg_to_show = msg + "指令已发送";
-                document.getElementById("myDiv2").innerHTML=msg_to_show;
-            }
+                document.getElementById("myDiv2").innerHTML="服务器已开启";
+
         };
 
 
-        xmlhttp.open("GET", msg, true);
+        xmlhttp.open("GET", 'start_server', true);
         xmlhttp.send();
     }
 </script>
 </head>
 <body>
 
-<div id="myDiv1"><h2>中控台</h2></div>
+<div id="myDiv1"><h2>车辆监控平台</h2></div>
 <button type="button" onclick="window.location.href='http://127.0.0.1:5000/'">返回主页</button>
-<div id="myDiv2"><h2>当前控制状态</h2></div>
-<button type="button" onclick="loadXMLDoc('fire_high')">消防车高速</button>
-<button type="button" onclick="loadXMLDoc('fire_low')">消防车低速</button>
-<button type="button" onclick="loadXMLDoc('fire_stop')">消防车停</button>
+<div id="myDiv2"><h2>{{ message_to_show }}</h2></div>
+<button type="button" onclick="startServerAndListen()">开启服务器并监听</button>
 
-<button type="button" onclick="loadXMLDoc('amb_high')">救护车高速</button>
-<button type="button" onclick="loadXMLDoc('amb_low')">救护车低速</button>
-<button type="button" onclick="loadXMLDoc('amb_stop')">救护车停</button>
-
-<button type="button" onclick="loadXMLDoc('bus_high')">大巴车高速</button>
-<button type="button" onclick="loadXMLDoc('bus_low')">大巴车低速</button>
-<button type="button" onclick="loadXMLDoc('bus_stop')">大巴车停</button>
 
 
 </body>
