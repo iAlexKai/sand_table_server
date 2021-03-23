@@ -109,11 +109,6 @@ def car_view():
     return render_template('socket.html', async_mode=socket_.async_mode)
 
 
-@app.route('/car_view/start_server')
-def start_server():
-    return render_template("car_view.html")
-
-
 @app.route('/car_control/', methods=['GET', 'POST'])
 def car_control():
     return render_template("car_control.html")

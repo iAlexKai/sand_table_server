@@ -30,6 +30,12 @@ app.py文件
 
     home_control(): home.html中两个按钮对应的函数，根据addr字段的不同，重定向到car_view和car_control两个函数
 
-    start_server(): socket.html中start_server按钮对应的后端函数
+    car_view(): car_view按钮对应的后端函数
+    car_control(): car_control按钮对应的后端函数
+
+    fire_high, fire_low ... bus_low bus_stop 九个函数对应九个车辆控制指令。
+
+    start_socket_to_raspberry() 为socket.html页面中点击start_server按钮后socket服务器端控制代码
 
 
+有问题直接微信群里问马远凯
