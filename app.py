@@ -19,24 +19,15 @@ thread = None
 thread_lock = Lock()
 
 
-
 @app.route('/')
 def home():
-    return render_template('socket.html', async_mode=socket_.async_mode)
-    # return render_template('home.html')
+    # return render_template('socket.html', async_mode=socket_.async_mode)
+    return render_template('home.html')
 
 
 ####################################################
 #### socket
 ####################################################
-
-
-@socket_.on('my_broadcast_event', namespace='/test')
-def test_broadcast_message(message):
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('my_response',
-         {'data': message['data'], 'count': session['receive_count']},
-         broadcast=True)
 
 
 @socket_.on('start_server', namespace='/test')
@@ -47,7 +38,7 @@ def start_socket_to_raspberry():
     # 套接字接口
     mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # 设置IP和端口
-    host = '192.168.124.3'
+    host = '10.28.191.87'
     port = 2222
     # bind绑定该端口
     mySocket.bind((host, port))
@@ -80,6 +71,9 @@ def start_socket_to_raspberry():
             emit('my_response', {'data': message_to_send, 'count': session['receive_count']})
 
             if msg == b"qq":
+                message_to_send = "传输结束，当前socket连接断开，请点击\"Start Server\"以接受新的连接"
+                session['receive_count'] = session.get('receive_count', 0) + 1
+                emit('my_response', {'data': message_to_send, 'count': session['receive_count']})
                 client.close()
                 mySocket.close()
                 print("程序结束\n")
@@ -112,12 +106,11 @@ def home_control():
 @app.route('/car_view/', methods=['GET', 'POST'])
 def car_view():
     # 给前端页面展示的数据只能传到html文件中，而不能直接传到script中
-    return render_template("car_view.html", message_to_show="欢迎使用车辆监控平台")
+    return render_template('socket.html', async_mode=socket_.async_mode)
 
 
 @app.route('/car_view/start_server')
 def start_server():
-
     return render_template("car_view.html")
 
 

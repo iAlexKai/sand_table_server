@@ -10,7 +10,6 @@
             namespace = '/test';
             var socket = io(namespace);
 
-
             socket.on('my_response', function(msg, cb) {
                 $('#log').append('<br>' + $('<div/>').text('logs #' + msg.count + ': ' + msg.data).html());
                 if (cb)
@@ -27,10 +26,12 @@
 <body style="background-color:white;">
 
     <h1 style="background-color:white;">Socket</h1>
+    <button type="button" onclick="window.location.href='http://127.0.0.1:5000/'">返回主页</button>
 
     <form id="start_server" method="POST" action="#">
         <input type="submit" value="Start Server">
     </form>
+
     <h2 style="background-color:white;">Logs</h2>
     <div id="log" ></div>
 </body>
